@@ -26,14 +26,28 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $total= $request->user()->fill($request->validated());
+        // obtenemos el usuario autenticado
+        $user = Auth::user();
+
+        // obtenemos los datos del fomulario formulario
+        $id = $user->id;
+        $name = $request->input('name');
+        $surname = $request->input('surname');
+        $nick = $request->input('nick');
+        $email = $request->input('email');
+
+    // Capturamos los datos y los guardamos en la base de datos
+        $user->name = $name;
+        $user->surname = $surname;
+        $user->nick = $nick;
+        $user->email = $email;
+
 
   
 
-        dump($total);
-        die;
+     
 
-          
+          // Guardamos los datos
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
