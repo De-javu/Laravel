@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -26,6 +28,10 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+      //dd($request->hasFile('image_path'));
+        
+ 
+
          // Obtenemos el usuario identificado
         $user = Auth::user();
 
@@ -35,6 +41,7 @@ class ProfileController extends Controller
         $surname = $request->input('surname');
         $nick = $request->input('nick');
         $email = $request->input('email');
+        $phone= $request->input('phone');
 
         // Validamos los datos del formulario con los datos de la base de datos
         $request->validate([
@@ -42,6 +49,9 @@ class ProfileController extends Controller
             'surname' => ['required', 'string','alpha', 'max:255'],
             'nick' => ['required', 'string', 'max:255', 'unique:users,nick,'.$id],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$id],
+            'phone' => ['required', 'string', 'max:20'],
+            'image_path' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        
         ]);
 
       
@@ -50,7 +60,22 @@ class ProfileController extends Controller
         $user->surname = $surname;
         $user->nick = $nick;
         $user->email = $email;
+        $user->phone = $phone;
+       
 
+        //Subir la imagen
+       $image_path = $request->file('image_path');
+    if  ($image_path) {
+
+        // Poner nombre unico
+      $image_path_name = time().'_'.$image_path->getClientOriginalName();
+
+        // Guardar en la carpeta storage (storage/app/users)
+        Storage::disk('users')->put($image_path_name, \File::get($image_path));
+
+        // Seteo el nombre de la imagen en el objeto
+        $user->image_path= $image_path_name;
+    }
      
 
           // Guardamos los datos
