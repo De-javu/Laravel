@@ -25,11 +25,11 @@
         </div>
     @endif
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}" enctype="multipart/form-data" >
+    <form id="send-verification" method="POST" action="{{ route('verification.send') }}" >
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
