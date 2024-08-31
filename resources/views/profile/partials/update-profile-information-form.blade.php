@@ -84,7 +84,10 @@
         </div>
 
         <div>
-        <x-input-label for="image_path" :value="__('Image')" />
+        <x-input-label for="image_path" :value="__('Image')" /> 
+
+          @include('components.avatar')
+          
         <x-text-input id="image_path" name="image_path" type="file" class="mt-1 block w-full" />
         <x-input-error class="mt-2" :messages="$errors->get('image_path')" />
     </div>

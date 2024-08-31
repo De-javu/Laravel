@@ -15,26 +15,41 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Larafoto a que estoy ') }}
                     </x-nav-link>
-                </div>
+                </div>                          
+             </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+             
+
+
+       
+
+            <!-- Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio ') }}
                     </x-nav-link>
                 </div>
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Subir imagen  ') }}
                     </x-nav-link>
-                </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                </div> 
+            
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                          
+                        <!-- avatar en la barra del menu  -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    @include('components.avatar', ['user' => Auth::user()])
+                    </x-nav-link>
+                     
+                </div>  
+            
+                        <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -52,6 +67,8 @@
                         <x-dropdown-configuracion :href="route('settings.edit')">
                             {{ __('settings') }}
                         </x-dropdown-configuracion>
+
+
                   
 
                         <!-- Authentication -->
@@ -67,7 +84,11 @@
                                   
                     </x-slot>
                 </x-dropdown>
-            </div>
+
+   
+          
+
+                      
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
