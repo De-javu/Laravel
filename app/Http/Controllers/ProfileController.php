@@ -50,7 +50,7 @@ class ProfileController extends Controller
             'surname' => ['required', 'string','alpha', 'max:255'],
             'nick' => ['required', 'string', 'max:255', 'unique:users,nick,'.$id],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$id],
-            'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'digits:10', 'unique:users,phone,'.$id],
             'image_path' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         
         ]);
@@ -71,7 +71,7 @@ class ProfileController extends Controller
         // Poner nombre unico
       $image_path_name = time().'_'.$image_path->getClientOriginalName();
 
-        // Guardar en la carpeta storage (storage/app/users)
+     // Guardar en la carpeta storage (storage/app/users)
         Storage::disk('users')->put($image_path_name, \File::get($image_path));
 
         // Seteo el nombre de la imagen en el objeto
