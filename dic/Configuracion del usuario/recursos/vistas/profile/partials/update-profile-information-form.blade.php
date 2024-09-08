@@ -1,4 +1,5 @@
 <section>
+    <!-- Nuestra los titulos y parrafos de la sección de encabezado -->
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Profile Information') }}
@@ -25,10 +26,12 @@
         </div>
     @endif
 
+     <!-- Formulario para enviar la verificación del correo -->
     <form id="send-verification" method="POST" action="{{ route('verification.send') }}" >
         @csrf
     </form>
 
+       <!-- Formulario para actualizara la información del usuario -->
     <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
@@ -92,17 +95,8 @@
         <x-input-error class="mt-2" :messages="$errors->get('image_path')" />
     </div>
 
-    
-
-
-
-
-
-
-
-
-
-            <div class="flex items-center gap-4">
+ <!-- boton para alamcenar los cxambio y mostrar mensaje de éxito -->
+    <div class="flex items-center gap-4">
                 <x-primary-button>{{ __('Save') }}</x-primary-button>
 
                 @if (session('status') === 'profile-updated')
