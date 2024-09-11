@@ -5,6 +5,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 // Agregar la ruta para welcome
 
@@ -28,7 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/avatar/{filename}', [ProfileController::class, 'getImage'])->name('profile.avatar');
+// Agregar la ruta para 'image'
+Route::get('/image', [ImageController::class, 'create'])->name('image.create');
 });
+
+
 
 // Agregar la ruta para 'auth'
 require __DIR__.'/auth.php';
