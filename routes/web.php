@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/avatar/{filename}', [ProfileController::class, 'getImage'])->name('profile.avatar');
 // Agregar la ruta para 'image'
 Route::get('/image', [ImageController::class, 'create'])->name('image.create');
+Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');
 });
 
 
