@@ -23,6 +23,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'nick',
         'email',
         'password',
+        'description',
+        'image_path',
+        
     ];
 
     /**
@@ -51,5 +54,11 @@ class User extends Authenticatable implements MustVerifyEmail
     // Relacion uno a muchos
     public function images(){
         return $this->hasMany(Image::class);
+    }
+
+    // Relacion uno a muchos
+    public function getImagePathAttribute()
+    {
+        return $this->attributes['image_path'];
     }
 }

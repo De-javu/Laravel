@@ -10,7 +10,7 @@
     </header>
 
     <!-- Mostrar el mensaje de éxito si existe -->
-     @include('components.mensaje', ['status' => 'profile-updated']);
+     @include('components.mensaje', ['status' => 'profile-updated'])
      
 
     <form id="send-verification" method="POST" action="{{ route('verification.send') }}" >

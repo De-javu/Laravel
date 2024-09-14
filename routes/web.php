@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\HomeController;
 
 // Agregar la ruta para welcome
 
@@ -23,6 +24,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+
+
 // Agregar la ruta para 'profile'
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,6 +35,8 @@ Route::middleware('auth')->group(function () {
 // Agregar la ruta para 'image'
 Route::get('/image', [ImageController::class, 'create'])->name('image.create');
 Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 });
 
 

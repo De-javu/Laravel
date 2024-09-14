@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImageController;
 use App\Models\Image;
+use App\Models\User;
+use APP\Http\Controllers\ProfileController;
 
 
 class HomeController extends Controller
@@ -17,16 +19,19 @@ class HomeController extends Controller
 
     public function index()
     {
-        $images = Image::orderBy('id', 'desc')->get();
+        $images = Image::orderBy('id', 'desc')->get();     
         return view('home', ['images' => $images]);
-    }
+
+        
+    } 
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+
     }
 
     /**
