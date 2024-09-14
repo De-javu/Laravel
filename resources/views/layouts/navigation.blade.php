@@ -29,7 +29,7 @@
                         {{ __('Inicio ') }}
                     </x-nav-link>
                 </div>
-
+                    <!-- Redireccion a la pagina de subir imagenes -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('image.create')" :active="request()->routeIs('image.create')">
                         {{ __('Subir imagen  ') }}
