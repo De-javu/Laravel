@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/image', [ImageController::class, 'create'])->name('image.create');
 Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name('image.file');
 
 });
 

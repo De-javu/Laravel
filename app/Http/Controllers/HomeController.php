@@ -4,26 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use App\Http\Controllers\ImageController;
 use App\Models\Image;
 use App\Models\User;
 use APP\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Storage;
 
 
 class HomeController extends Controller
 
 {
-    /**
-     * Display a listing of the resource.
-     */
-
+    //Se enacarga de traer todas las imagenes de los usuarios en la base de datos y mostrarlas en la vista home
+     
     public function index()
     {
-        $images = Image::orderBy('id', 'desc')->get();     
-        return view('home', ['images' => $images]);
-
-        
+        $images = Image::orderBy('id', 'desc')->paginate(5);     
+        return view('home', ['images' => $images]);        
     } 
+     
+    public function getImage($filename)
+    {
+        $file = Storage::disk('images')->get($filename);
+        return new Response($file, 200);
+        
+    }
+
 
 
     /**
