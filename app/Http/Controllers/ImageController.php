@@ -23,44 +23,46 @@ class ImageController extends Controller
     {
         return view('image.create');
     }
-     
-    public function save(Request $request):RedirectResponse
+
+    public function save(Request $request): RedirectResponse
     {
         //Validacion de los datos que llegan por el formulario de subir imagen 
-        $request->validate(rules:[
+        $request->validate(rules: [
 
             'image_path' => 'required|image|mimes:jpg,jpeg,png,gif,svg,webp',
-            'description' => 'required'          
+            'description' => 'required'
         ]);
-       
+
         //  Recolectar los datos que llegan por el formulario de subir imagen
-       $image_path = $request->file('image_path');
-       $description = $request->input('description');
+        $image_path = $request->file('image_path');
+        $description = $request->input('description');
 
-       // Crear un objeto de la clase Image
-       $user = Auth::user(); ;
-       $image = new Image();
-       $image->user_id = $user->id;
-       $image->description = $description;
+        // Crear un objeto de la clase Image
+        $user = Auth::user();
+        $image = new Image();
+        $image->user_id = $user->id;
+        $image->description = $description;
 
 
-         // Subir la imagen al servidor
+        // Subir la imagen al servidor
 
-         if($image_path){
-            $image_path_name = time().$image_path->getClientOriginalName();
+        if ($image_path) {
+            $image_path_name = time() . $image_path->getClientOriginalName();
             Storage::disk('images')->put($image_path_name, File::get($image_path));
-            $image->image_path = $image_path_name;          
+            $image->image_path = $image_path_name;
 
-         }
+        }
 
-            // Guardar la imagen en la base de datos
-            $image->save();
+        // Guardar la imagen en la base de datos
+        $image->save();
 
-            return Redirect::route('image.create')->with(['status' => 'La imagen se ha subido correctamente']);
+        return Redirect::route('image.create')->with(['status' => 'La imagen se ha subido correctamente']);
 
+    }
 
-
-       
-        
+    public function detail($id)
+    {
+        $image = Image::find($id);
+        return view('image.detail', ['image' => $image]);
     }
 }

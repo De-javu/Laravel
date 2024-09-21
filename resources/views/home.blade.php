@@ -20,9 +20,13 @@
                                                     alt="Avatar" class="rounded-full h-9 w-9 object-cover">
 
                                             </div>
-                                            <div class="ml-4">
+                                            <div class="ml-4 text-gray-400 cursor-auto  hover:text-gray-100">
+                                                <x-nav-link href="{{route('image.detail',['id'=>$image->id])}}">
                                                 {{$image->user->name . ' ' . $image->user->surname}}
+                                                </x-nav-link>
                                             </div>
+                                       
+                                           
 
                                             <!-- mensaje para que suba una imagen de perfil, se adjunta link  -->
 
@@ -53,21 +57,23 @@
                                         @endif
 
 
-                                        <div class="description   m-2 p-4 ">
-                                            <span>{{ $image->description }}</span>
+                                        <div class="description   m-auto p-4  ">
+                                            <span>{{ $image->description }}</span> <br>
+                                            <span>{{ 'Publicado '.\App\Helpers\FormatTime::LongTimeFilter($image->created_at) }}</span>
+                                       
                                         </div>
 
-                                        <div class="likes flex items-center space-x-2 mb-4 justify-start">
+                                        <div class="likes flex items-center space-x-2 mb-4">
+                                        
+                                        <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
 
                                             <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                                                 <button
                                                     class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded ">
-                                                    <a href=""> Comentarios</a>
+                                                    <a href=""> Comentarios ({{count($image->comments)}})</a>
                                                 </button>
-                                                
-
-                                                <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
-                                                <img src="{{asset('imagenes/black-heart.png')}}" alt="Corazon">
+                                                                                                
+                                             
                                             </div>
                                         </div>
 
