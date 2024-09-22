@@ -7,6 +7,9 @@ use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommentController;
+
+
 
 // Agregar la ruta para welcome
 
@@ -38,6 +41,7 @@ Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save'
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name('image.file');
 Route::get('/image/{id}', [ImageController::class, 'detail'])->name('image.detail');
+Route::patch('/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
 });
 

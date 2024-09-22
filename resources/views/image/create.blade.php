@@ -7,7 +7,7 @@
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     Carga tus Imagenes
 
-                      <!-- Se muestra el mensaje de éxito si existe -->
+                    <!-- Se muestra el mensaje de éxito si existe -->
 
                     @include('components.mensaje', ['status' => 'profile-updated'])
                 </h2>
@@ -16,14 +16,10 @@
 
                 <!-- Creacion del formulario para subir imagenes -->
                 <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg sm:overflow-hidden">
-                    <form method="POST" action="{{route('image.save')}} " enctype="multipart/form-data" class="mt-6 space-y-6">
+                    <form method="POST" action="{{route('image.save')}} " enctype="multipart/form-data"
+                        class="mt-6 space-y-6">
                         @csrf
                         @method('patch')
-
-                      
-                        
-                            
-                        
 
                         <div>
                             <x-input-label for="image_path" :value="__('Image')" />
