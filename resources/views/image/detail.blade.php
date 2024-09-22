@@ -8,8 +8,6 @@
 
                     <!-- Se muestran las imágenes que has subido -->
                     <div>
-                        @include('components.mensaje')
-
                         <div class="card">
                             <div class="card-header p-4">
                                 <!-- Se valida si el usuario tiene una imagen de perfil, si no la tiene se muestra un mensaje para que suba una. -->
@@ -40,11 +38,11 @@
                                 </div>
                             </div>
 
-                                <!-- Tarjeta de imagen -->
+                            <!-- Tarjeta de imagen -->
                             <div class="car-body p-4 bg-gray-710 rounded-lg shadow-xl h-auto">
                                 <div class="image mb-4 ">
 
-                                  <!-- condicional para mostrar la imagen o un mensaje de error si no se encuentra -->
+                                    <!-- condicional para mostrar la imagen o un mensaje de error si no se encuentra -->
                                     @if (isset($image->user->image_path))
                                         <img src="{{ route('image.file', ['filename' => $image->image_path]) }}"
                                             alt="Imagen" class="object-cover w-full h-auto mx-auto">
@@ -65,8 +63,9 @@
                                             <h2>Comentarios ({{count($image->comments)}})</h2>
                                         </div>
                                     </div>
+                                    @include('components.mensaje')
 
-                                      <!-- Creacion del formualario el cual optiene el id de la imagne y lo pasa de forma oculta -->
+                                    <!-- Creacion del formualario el cual optiene el id de la imagne y lo pasa de forma oculta -->
                                     <div class="bg-white-500 dark:bg-gray-800 shadow sm:rounded-lg p-2 ">
                                         <form action="{{route('comment.store')}}" method="POST" class="mt-6 space-y-6">
                                             @csrf
@@ -74,12 +73,17 @@
 
                                             <input type="hidden" name="image_id" value="{{ $image->id }}">
                                             <div>
-                                            <textarea name="content" class="mt--1.25 block w-full p-2 border border-gray-300 rounded-md text-gray-900" required></textarea>
+                                                <textarea name="content"
+                                                    class="mt--1.25 block w-full p-2 border border-gray-300 rounded-md text-gray-900 "
+                                                    required></textarea>
+                                                <x-input-error class="mt-2" :messages="$errors->get('content')" />
                                             </div>
                                             <div>
                                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
+                                                
                                             </div>
                                         </form>
+                                        
                                     </div>
                                 </div>
 

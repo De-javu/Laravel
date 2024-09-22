@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -27,10 +28,33 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-          $image_id = $request->input('image_id');
-          $content = $request->input('content');
+        // valiadcion de los datos que llegan
+        $validate = $request->validate([
+            'image_id' => 'integer|required',
+            'content' => 'string|required'
+        ]);
 
-          dd($image_id, $content);
+        // recoge el usuario autenticado
+           $user = \Auth::user();
+
+        // recoge los datos que llegan del formulario de la vista detail.blade.php
+           $image_id = $request->input('image_id');
+           $content = $request->input('content');
+        
+        // asigna los valores a las propiedades del objeto por meido de una instancia de la clase Comment   
+           $comment = new Comment();
+           $comment->user_id = $user->id;
+           $comment->image_id = $image_id;
+           $comment->content = $content;
+
+        // guarda los datos en la base de datos
+              $comment->save();
+
+        // redirecciona a la vista detail.blade.php
+                return redirect()->route('image.detail', ['id' => $image_id])
+                ->with(['status' => 'Has publicado tu comentario correctamente']);
+
+
     }
 
     /**
@@ -38,7 +62,7 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**

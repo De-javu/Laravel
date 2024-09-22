@@ -32,7 +32,7 @@
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
                             <textarea id="description" name="description" class="mt-1 block w-full" required></textarea>
-                            <class="mt-2" :messages="$errors->get('description')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
                         <!-- Se crea el boton de guardado de la imagen y se muestra un mensaje de guardado exitoso. -->
