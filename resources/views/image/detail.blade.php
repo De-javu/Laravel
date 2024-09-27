@@ -65,7 +65,7 @@
                                     </div>
                                     @include('components.mensaje')
 
-                                    <!-- Creacion del formualario el cual optiene el id de la imagne y lo pasa de forma oculta -->
+                                    <!-- Creacion del formualario el cual optiene el id de la imagen y lo pasa de forma oculta -->
                                     <div class="bg-white-500 dark:bg-gray-800 shadow sm:rounded-lg p-2 ">
                                         <form action="{{route('comment.store')}}" method="POST" class="mt-6 space-y-6">
                                             @csrf

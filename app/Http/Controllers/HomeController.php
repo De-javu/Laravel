@@ -22,14 +22,14 @@ class HomeController extends Controller
         $images = Image::orderBy('id', 'desc')->paginate(5);     
         return view('home', ['images' => $images]);        
     } 
-     
+      
+    //Se encarga de servir las images de los usuarios en la vista home directamente desde el storage
     public function getImage($filename)
     {
         $file = Storage::disk('images')->get($filename);
         return new Response($file, 200);
         
     }
-
 
 
     /**

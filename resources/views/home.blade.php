@@ -43,8 +43,9 @@
                                     @endif
                                     </div>
                                 </div>
+                                
 
-
+                                 <!-- Se muestra la imagen y la descripción de la misma. -->
                                 <div class="car-body p-4 bg-gray-710 rounded-lg shadow-xl">
                                     <div class="image mb-4 ">
 
