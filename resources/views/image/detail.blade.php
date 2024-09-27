@@ -80,10 +80,20 @@
                                             </div>
                                             <div>
                                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
-                                                
+
                                             </div>
                                         </form>
-                                        
+
+                                        @foreach ($image->comments as $comment)
+
+                                            <div class="m-auto mt-4 p-8  text-gray-400">
+                                                <span>{{'@'.$comment->user->nick}}</span> <br>
+                                                <span>{{ $comment->content }}</span> <br>
+                                                <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($comment->created_at) }}</span>
+                                            </div>
+
+                                        @endforeach
+
                                     </div>
                                 </div>
 
