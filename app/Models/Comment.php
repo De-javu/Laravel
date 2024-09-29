@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $table = 'comments';
 
-    public function images(){
+    public function image(){
         return $this->belongsTo(Image::class, 'image_id');
 
     }

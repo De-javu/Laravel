@@ -22,7 +22,10 @@
                                             </div>
                                             <div class="ml-4 text-gray-400 cursor-auto  hover:text-gray-100">
                                                 <x-nav-link href="{{route('image.detail',['id'=>$image->id])}}">
-                                                {{$image->user->name . ' ' . $image->user->surname}}
+                                                    <h1 class="text-lg   font-sans uppercase">
+                                                         {{$image->user->name . ' ' . $image->user->surname}}
+                                                    </h1>
+                                                
                                                 </x-nav-link>
                                             </div>
                                        

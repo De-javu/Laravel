@@ -82,10 +82,33 @@ class CommentController extends Controller
     }
 
     /**
-     * Eliminar el recurso especificado del almacenamiento.
+     * Eliminar el comentario si soy dueño del la imagne o el dueño del comentario.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Recoger los datos del usuario logueado 
+        $user = \Auth::user();
+
+        // Recoger los datos del comenetario por el id
+        $comment = Comment::find($id);
+
+
+
+        // Comprobar si soy el dueño del comentario o de la imagen, por que son los unicos que pueden eliminar el comentario
+
+        if($user &&($comment->user_id == $user->id || $comment->image->user_id == $user->id))
+        {
+            $comment->delete();
+
+             // redirecciona a la vista detail.blade.php
+             return redirect()->route('home', ['id' => $comment->image->user_id])
+             ->with(['status' => 'comentario eliminado correctamente']);
+
+            } else {
+                return redirect()->back()->with('error', 'No está autorizado para eliminar este comentario.');
+            }
+
+        }
+
     }
-}
+

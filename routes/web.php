@@ -42,7 +42,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name('image.file');
 Route::get('/image/{id}', [ImageController::class, 'detail'])->name('image.detail');
 Route::patch('/comment/store', [CommentController::class, 'store'])->name('comment.store');
-
+Route::get('/comment/destroy/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
 
 

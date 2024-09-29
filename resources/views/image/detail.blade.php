@@ -18,7 +18,7 @@
                                                 alt="Avatar" class="rounded-full h-9 w-9 object-cover">
 
                                         </div>
-                                        <div class="ml-4">
+                                        <div class="ml-4 uppercase">                                            
                                             {{$image->user->name . ' ' . $image->user->surname}}
                                         </div>
 
@@ -84,13 +84,40 @@
                                             </div>
                                         </form>
 
+
+                                <!--1.1 Listamos los comentarios de la imagen -->
                                         @foreach ($image->comments as $comment)
 
-                                            <div class="m-auto mt-4 p-8  text-gray-400">
-                                                <span>{{'@'.$comment->user->nick}}</span> <br>
-                                                <span>{{ $comment->content }}</span> <br>
-                                                <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($comment->created_at) }}</span>
-                                            </div>
+                                        <div class="m-auto mt-4 p-8  text-gray-400">
+                                            <span>{{'@' . $comment->user->nick}}</span> <br>
+                                            <span>{{ $comment->content }}</span> <br>
+                                            <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($comment->created_at) }}</span><br>
+
+                                                <!-- 1.2 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
+                                            @if (Auth::check())
+                                                    @php
+                                                        $user = Auth::user();
+                                                        $id = $comment->user_id;
+                                                        $ima = $comment->image->user_id;
+                                                        @endphp
+
+                                                <!-- 1.3 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
+                                                    @if ($comment->image && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id))
+                                                        <x-nav-link   href="{{ route('comment.destroy', ['id' => $comment->id]) }}">
+                                                         <!-- 1.4 Estilizamos el boton de eliminar -->
+                                                            <x-danger-button> 
+                                                                {{ __('Eliminar') }}
+                                                            </x-danger-button>
+                                                        </x-nav-link>  
+                                                        @else 
+                                                        <p>Solo el usuarios o creador de el comentarios, puede eliminar</p>                                            
+                                                    @endif                                               
+                                                    
+
+                                            @endif
+
+
+                                        </div>
 
                                         @endforeach
 
