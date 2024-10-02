@@ -43,6 +43,9 @@ Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name(
 Route::get('/image/{id}', [ImageController::class, 'detail'])->name('image.detail');
 Route::patch('/comment/store', [CommentController::class, 'store'])->name('comment.store');
 Route::get('/comment/destroy/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
+Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
+Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment.update');
 });
 
 
