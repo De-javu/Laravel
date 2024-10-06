@@ -85,9 +85,9 @@
                                             <!-- // Mostramos el corazón en rojo si el usuario le ha dado like, a la imagen o el negro si no lo ha hecho -->
                                             @if($user_like)
                                        
-                                                <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
+                                                <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon"  data-id="{{$image->id}}" class="btn-deslike">
                                             @else
-                                                <img src="{{asset('imagenes/black-heart.png')}}" alt="">
+                                                <img src="{{asset('imagenes/black-heart.png')}}" alt="Corazon"  data-id="{{$image->id}}" class="btn-like">
                                             @endif
 
                                        

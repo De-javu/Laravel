@@ -58,7 +58,29 @@
 
                                     <!-- Sección de comentarios, con numero de comentarios y visualizacionde emoji -->
                                     <div class="likes flex items-center space-x-2 mb-4">
-                                        <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
+                                        <!-- // Comprobamos si el usuario le ha dado like a la imagen -->
+                                        <?php $user_like = false; ?>
+
+                                        @foreach($image->likes as $like)
+                                            @if($like->user->id == Auth::user()->id)
+                                                <?php        $user_like = true; ?>
+                                            @endif
+                                        @endforeach
+
+
+
+
+                                        <!-- // Mostramos el corazón en rojo si el usuario le ha dado like, a la imagen o el negro si no lo ha hecho -->
+                                        @if($user_like)
+
+                                            <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon"
+                                                data-id="{{$image->id}}" class="btn-deslike">
+                                        @else
+                                            <img src="{{asset('imagenes/black-heart.png')}}" alt="Corazon"
+                                                data-id="{{$image->id}}" class="btn-like">
+                                        @endif
+
+
                                         <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                                             <h2>Comentarios ({{count($image->comments)}})</h2>
                                         </div>
@@ -88,45 +110,45 @@
                                         <!--1.1 Listamos los comentarios de la imagen -->
                                         @foreach ($image->comments as $comment)
 
-                                                    <div class="m-auto mt-4 p-8  text-gray-400">
-                                                        <span>{{'@' . $comment->user->nick}}</span> <br>
-                                                        <span>{{ $comment->content }}</span> <br>
-                                                        <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($comment->created_at) }}</span><br>
+                                                                            <div class="m-auto mt-4 p-8  text-gray-400">
+                                                                                <span>{{'@' . $comment->user->nick}}</span> <br>
+                                                                                <span>{{ $comment->content }}</span> <br>
+                                                                                <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($comment->created_at) }}</span><br>
 
-                                                        <!-- 1.2 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
-                                                        @if (Auth::check())
-                                                                    @php
-                                                                        $user = Auth::user();
-                                                                        $id = $comment->user_id;
-                                                                        $ima = $comment->image->user_id;
-                                                                    @endphp
+                                                                                <!-- 1.2 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
+                                                                                @if (Auth::check())
+                                                                                                                        @php
+                                                                                                                            $user = Auth::user();
+                                                                                                                            $id = $comment->user_id;
+                                                                                                                            $ima = $comment->image->user_id;
+                                                                                                                        @endphp
 
-                                                                    <!-- 1.3 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
-                                                                    @if ($comment->image && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id))
-                                                                        <x-nav-link href="{{ route('comment.destroy', ['id' => $comment->id]) }}">
-                                                                            <!-- 1.4 Estilizamos el boton de eliminar -->
-                                                                            <x-danger-button>
-                                                                                {{ __('Eliminar') }}
-                                                                            </x-danger-button>
-                                                                        </x-nav-link>
-                                                                    @else
-                                                                        <p>Solo el usuarios o creador de el comentarios, puede eliminar</p>
-                                                                    @endif
-                                                                @endif
+                                                                                                                        <!-- 1.3 verificamos si el usuario esta autenticado y si es el dueño del comentario o de la imagen -->
+                                                                                                                        @if ($comment->image && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id))
+                                                                                                                            <x-nav-link href="{{ route('comment.destroy', ['id' => $comment->id]) }}">
+                                                                                                                                <!-- 1.4 Estilizamos el boton de eliminar -->
+                                                                                                                                <x-danger-button>
+                                                                                                                                    {{ __('Eliminar') }}
+                                                                                                                                </x-danger-button>
+                                                                                                                            </x-nav-link>
+                                                                                                                        @else
+                                                                                                                            <p>Solo el usuarios o creador de el comentarios, puede eliminar</p>
+                                                                                                                        @endif
+                                                                                @endif
 
-                                                                    @if ($comment->user_id == Auth::user()->id)
+                                                                                @if ($comment->user_id == Auth::user()->id)
 
-                                                                    <x-nav-link  href="{{ route('comment.edit', ['id' => $comment->id]) }}">
-                                                                                <!-- 1.4 Estilizamos el boton de editar -->
-                                                                                <x-secondary-button>
-                                                                                    {{ __('Editar') }}                                                                                                    
-                                                                                </x-secondary-button>
-                                                                                </x-nav-link>
-                                                                    @else
-                                                                        <p>No puedes editar</p>
-                                                                    
-                                                                    @endif                            
-                                                    </div>
+                                                                                    <x-nav-link href="{{ route('comment.edit', ['id' => $comment->id]) }}">
+                                                                                        <!-- 1.4 Estilizamos el boton de editar -->
+                                                                                        <x-secondary-button>
+                                                                                            {{ __('Editar') }}
+                                                                                        </x-secondary-button>
+                                                                                    </x-nav-link>
+                                                                                @else
+                                                                                    <p>No puedes editar</p>
+
+                                                                                @endif
+                                                                            </div>
                                         @endforeach
 
                                     </div>
