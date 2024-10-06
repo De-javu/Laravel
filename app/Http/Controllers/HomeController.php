@@ -10,12 +10,15 @@ use App\Models\Image;
 use App\Models\User;
 use APP\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Middleware\Authenticate;
 
 
 class HomeController extends Controller
 
 {
     //Se enacarga de traer todas las imagenes de los usuarios en la base de datos y mostrarlas en la vista home
+
+ 
      
     public function index()
     {

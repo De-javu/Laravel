@@ -5,20 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/main.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
-
-       
 
             <!-- Page Heading -->
             @isset($header)
@@ -33,9 +30,17 @@
             <main>
                 {{ $slot }}
             </main>
-
-        
-
         </div>
+
+        <script>
+            window.addEventListener('load', function() {
+                if (typeof jQuery !== 'undefined') {
+                    console.log('jQuery está cargado correctamente.');
+                    $('body').css('background-color', 'red');
+                } else {
+                    console.error('jQuery no está cargado.');
+                }
+            });
+        </script>
     </body>
 </html>

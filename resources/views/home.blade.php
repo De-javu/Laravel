@@ -21,15 +21,15 @@
 
                                             </div>
                                             <div class="ml-4 text-gray-400 cursor-auto  hover:text-gray-100">
-                                                <x-nav-link href="{{route('image.detail',['id'=>$image->id])}}">
+                                                <x-nav-link href="{{route('image.detail', ['id' => $image->id])}}">
                                                     <h1 class="text-lg   font-sans uppercase">
-                                                         {{$image->user->name . ' ' . $image->user->surname}}
+                                                        {{$image->user->name . ' ' . $image->user->surname}}
                                                     </h1>
-                                                
+
                                                 </x-nav-link>
                                             </div>
-                                       
-                                           
+
+
 
                                             <!-- mensaje para que suba una imagen de perfil, se adjunta link  -->
 
@@ -46,9 +46,9 @@
                                     @endif
                                     </div>
                                 </div>
-                                
 
-                                 <!-- Se muestra la imagen y la descripción de la misma. -->
+
+                                <!-- Se muestra la imagen y la descripción de la misma. -->
                                 <div class="car-body p-4 bg-gray-710 rounded-lg shadow-xl">
                                     <div class="image mb-4 ">
 
@@ -63,21 +63,46 @@
 
                                         <div class="description   m-auto p-4  ">
                                             <span>{{ $image->description }}</span> <br>
-                                            <span>{{ 'Publicado '.\App\Helpers\FormatTime::LongTimeFilter($image->created_at) }}</span>
-                                       
+                                            <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($image->created_at) }}</span>
                                         </div>
 
+                                        <!-- // Se muestran los botones para dar like y comentar la imagen. -->
                                         <div class="likes flex items-center space-x-2 mb-4">
-                                        
-                                        <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
+                                           
 
+                                            <!-- // Comprobamos si el usuario le ha dado like a la imagen -->
+                                            <?php $user_like = false; ?>
+                                           
+                                            @foreach($image->likes as $like)
+                                                @if($like->user->id == Auth::user()->id)
+                                                    <?php $user_like = true; ?>
+                                                @endif
+                                            @endforeach
+
+                                   
+                                           
+
+                                            <!-- // Mostramos el corazón en rojo si el usuario le ha dado like, a la imagen o el negro si no lo ha hecho -->
+                                            @if($user_like)
+                                       
+                                                <img src="{{asset('imagenes/heart-red.png')}}" alt="Corazon">
+                                            @else
+                                                <img src="{{asset('imagenes/black-heart.png')}}" alt="">
+                                            @endif
+
+                                       
+
+                                            {{count($image->likes)}}
+
+
+                                            <!-- // Boton de comentarios  -->
                                             <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                                                 <button
                                                     class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded ">
                                                     <a href=""> Comentarios ({{count($image->comments)}})</a>
                                                 </button>
-                                                                                                
-                                             
+
+
                                             </div>
                                         </div>
 
