@@ -48,6 +48,7 @@ Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])->name('comm
 Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment.update');
 Route::get('/like/{image_id}', [LikeController::class, 'like'])->name('like.save');
 Route::get('/deslike/{image_id}', [LikeController::class, 'deslike'])->name('deslike.delete');
+Route::get('/like', [LikeController::class, 'index'])->name('like.index');
 });
 
 

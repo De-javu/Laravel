@@ -63,6 +63,6 @@ class ImageController extends Controller
     public function detail($id)
     {
         $image = Image::find($id);
-        return view('image.detail', ['image' => $image]);
+        return view('image.detail', compact('image'));
     }
 }

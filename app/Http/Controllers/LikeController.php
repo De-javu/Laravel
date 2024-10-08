@@ -12,6 +12,23 @@ class LikeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    // Metodo para listar loslikes
+
+    public function index()
+    {
+        // Obtenemos el usuario autenticado
+        $user = \Auth::user();
+
+        // Obtenemos los likes de la base de datos
+        $likes = Like::where('user_id', $user->id)
+                    ->orderBy('id', 'desc')
+                    ->paginate(5);
+
+        // Retornamos la vista like.index con el listado likes
+        return view('like.index', compact('likes'));
+    }
+
     public function like($image_id)
     {
         // Obtenemos el usuario autenticado
@@ -52,9 +69,8 @@ class LikeController extends Controller
     }
 
 
-
     /**
-     * Show the form for creating a new resource.
+     * Mostrar el formulario para crear un nuevo recurso.
      */
     public function create()
     {
@@ -62,7 +78,7 @@ class LikeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar un recurso recién creado en el almacenamiento.
      */
     public function store(Request $request)
     {
@@ -70,7 +86,7 @@ class LikeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar el recurso especificado.
      */
     public function show(string $id)
     {
@@ -78,7 +94,7 @@ class LikeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso especificado.
      */
     public function edit(string $id)
     {
@@ -86,7 +102,7 @@ class LikeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar el recurso especificado en el almacenamiento.
      */
     public function update(Request $request, string $id)
     {
