@@ -28,14 +28,15 @@ class ImageController extends Controller
     {
         //Validacion de los datos que llegan por el formulario de subir imagen 
         $request->validate(rules: [
-
             'image_path' => 'required|image|mimes:jpg,jpeg,png,gif,svg,webp',
             'description' => 'required'
         ]);
 
+
         //  Recolectar los datos que llegan por el formulario de subir imagen
         $image_path = $request->file('image_path');
         $description = $request->input('description');
+
 
         // Crear un objeto de la clase Image
         $user = Auth::user();
@@ -45,7 +46,6 @@ class ImageController extends Controller
 
 
         // Subir la imagen al servidor
-
         if ($image_path) {
             $image_path_name = time() . $image_path->getClientOriginalName();
             Storage::disk('images')->put($image_path_name, File::get($image_path));
@@ -53,9 +53,9 @@ class ImageController extends Controller
 
         }
 
+
         // Guardar la imagen en la base de datos
         $image->save();
-
         return Redirect::route('image.create')->with(['status' => 'La imagen se ha subido correctamente']);
 
     }

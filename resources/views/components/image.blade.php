@@ -9,7 +9,7 @@
 
                 </div>
                 <div class="ml-4 text-gray-400 cursor-auto  hover:text-gray-100">
-                    <x-nav-link href="{{route('image.detail', ['id' => $image->id])}}">
+                    <x-nav-link href="{{route('settings.perfil', ['id' => $image->user->id])}}">
                         <h1 class="text-lg   font-sans uppercase">
                             {{$image->user->name . ' ' . $image->user->surname}}
                         </h1>
@@ -86,7 +86,7 @@
                 <!-- // Boton de comentarios  -->
                 <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                     <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded ">
-                        <a href=""> Comentarios ({{count($image->comments)}})</a>
+                        <a href="{{route('image.detail', ['id' => $image->id])}}"> Comentarios ({{count($image->comments)}})</a>
                     </button>
 
 

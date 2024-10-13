@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use APP\Models\User;
+
+    use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
     
-    public function edit()
+    public function perfil($id)
     {
-        return view('settings.edit');
+        $user = User::find($id);
+        return view('settings.perfil', compact('user'));
+
     }
 }
+
+ 
 
 
 

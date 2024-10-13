@@ -67,16 +67,17 @@
                     </x-slot>
 
                     <x-slot name="content">
+
+            <!-- // Contiene los liks para configiracion del perfil se usuario  -->
+                    <x-dropdown-configuracion :href="@route('settings.perfil', Auth::user()->id)">
+                            {{ __('Perfil') }}
+                        </x-dropdown-configuracion>      
+
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Editar perfil') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-configuracion :href="route('settings.edit')">
-                            {{ __('settings') }}
-                        </x-dropdown-configuracion>
-
-
-                  
+                             
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -142,6 +143,8 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
+          
+         
 
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
