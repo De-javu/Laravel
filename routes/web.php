@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
     
     // Agregar la ruta para 'settings'
     Route::get('/perfil/{id}', [SettingsController::class, 'perfil'])->name('settings.perfil');
+    Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
     });
 
 

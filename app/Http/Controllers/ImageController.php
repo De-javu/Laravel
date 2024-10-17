@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Redirect;
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Like;
 
 class ImageController extends Controller
 {
@@ -64,5 +67,59 @@ class ImageController extends Controller
     {
         $image = Image::find($id);
         return view('image.detail', compact('image'));
+    }
+
+    public function destroy($id)
+    {
+
+        //Conseguir el usuario identificado
+        $user = Auth::user();
+        $image = Image::find($id);
+        $comments = Comment::where('image_id', $id)->get();
+        $likes = Like::where('image_id', $id)->get();
+
+
+         
+        
+        //Comprobar si el usuario logeado es el dueño de la imagen 
+        if ($user && $image && $image->user->id == $user->id) {
+
+
+            //Eliminar los comentarios
+            if ($comments && count($comments) >= 1) {
+                foreach ($comments as $comment) {
+                    $comment->delete();
+                }
+            }
+
+
+            //Eliminar los likes
+            if ($likes && count($likes) >= 1) {
+                foreach ($likes as $like) {
+                    $like->delete();
+
+                }
+
+            }
+
+            //Eliminar el archivo de la imagen
+            Storage::disk('images')->delete($image->image_path);
+
+
+            //Eliminar el registro de la imagen
+            $image->delete();
+
+            $message = array ('message' => 'la imagen se ha borrado correctamente');
+
+        } else {
+            $message = array ('message' => 'la imamgen no se ha podido eliminar');
+        }
+
+        //Redireccionar al perfil del usuario
+        return Redirect::route('home')->with(['status' => 'La imagen se ha borrado correctamente']);
+
+
+
+
     }
 }

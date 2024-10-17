@@ -11,7 +11,7 @@
                         <div class="card">
                             <div class="card-header p-4">
                                 <!-- Se valida si el usuario tiene una imagen de perfil, si no la tiene se muestra un mensaje para que suba una. -->
-                                @if ($image->user->image_path)
+                                @if (isset($image->user) && $image->user->image_path)
                                     <div class="flex items center">
                                         <div class="avatar">
                                             <img src="{{ route('profile.avatar', ['filename' => $image->user->image_path]) }}"
@@ -27,7 +27,8 @@
                                 @else
                                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4"
                                         role="alert">
-                                        <p class="font-bold"> {{$image->user->name}}</p>
+                                        <p class="font-bold">
+                                            {{ isset($image->user) ? $image->user->name : 'Usuario desconocido' }}</p>
                                         <x-nav-link :href="route('image.create')"
                                             :active="request()->routeIs('image.create')">
                                             {{ __('Carga tu Imagen') }}, </br>
@@ -38,14 +39,28 @@
                                 </div>
                             </div>
 
+
                             <!-- Tarjeta de imagen -->
                             <div class="car-body p-4 bg-gray-710 rounded-lg shadow-xl h-auto">
                                 <div class="image mb-4 ">
+
 
                                     <!-- condicional para mostrar la imagen o un mensaje de error si no se encuentra -->
                                     @if (isset($image->user->image_path))
                                         <img src="{{ route('image.file', ['filename' => $image->image_path]) }}"
                                             alt="Imagen" class="object-cover w-full h-auto mx-auto">
+
+                                        <!-- Botonones para editar y eliminar la imagen -->
+                                        @if ($image->user->id == Auth::user()->id)
+                                            <div class="p-1 ">
+                                                <span>{{ $image->image_path}}</span> <br>
+                                                <x-nav-link href=""><x-secondary-button>{{'Editar'}}</x-secondary-button></x-nav-link>
+                                                <x-nav-link href="{{route('image.destroy', ['id' => $image->id])}}">
+                                                    <x-danger-button class="m-2">{{ __('Eliminarrrrr') }}</x-danger-button>
+                                                </x-nav-link>
+                                            </div>
+                                        @endif
+
                                     @else
                                         <p class="text-red-500">No se encuentra imagen disponible</p>
                                     @endif
@@ -53,7 +68,7 @@
                                     <!-- Configuracion dela descripción de la imagen con la fecha de publicación -->
                                     <div class="description   m-auto p-4  ">
                                         <span>{{ $image->description }}</span> <br>
-                                        <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($image->created_at) }}</span>
+                                        <span>{{ 'Publicado ' . \App\Helpers\FormatTime::LongTimeFilter($image->created_at ?? '') }}</span>
                                     </div>
 
                                     <!-- Sección de comentarios, con numero de comentarios y visualizacionde emoji -->
@@ -69,7 +84,6 @@
 
 
 
-
                                         <!-- // Mostramos el corazón en rojo si el usuario le ha dado like, a la imagen o el negro si no lo ha hecho -->
                                         @if($user_like)
 
@@ -81,9 +95,12 @@
                                         @endif
 
 
+
                                         <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                                             <h2>Comentarios ({{count($image->comments)}})</h2>
                                         </div>
+
+
                                     </div>
                                     @include('components.mensaje')
 
