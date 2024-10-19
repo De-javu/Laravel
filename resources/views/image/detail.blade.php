@@ -6,32 +6,35 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You listing") }}
 
+
                     <!-- Se muestran las imágenes que has subido -->
                     <div>
                         <div class="card">
                             <div class="card-header p-4">
+
+
                                 <!-- Se valida si el usuario tiene una imagen de perfil, si no la tiene se muestra un mensaje para que suba una. -->
                                 @if (isset($image->user) && $image->user->image_path)
                                     <div class="flex items center">
                                         <div class="avatar">
                                             <img src="{{ route('profile.avatar', ['filename' => $image->user->image_path]) }}"
                                                 alt="Avatar" class="rounded-full h-9 w-9 object-cover">
-
                                         </div>
+
+                                        <!-- Utilizamos el nombre y apellido del usuario que subió la imagen -->
                                         <div class="ml-4 uppercase">
                                             {{$image->user->name . ' ' . $image->user->surname}}
                                         </div>
 
-                                        <!-- mensaje para que suba una imagen de perfil, se adjunta link  -->
 
+                                <!-- mensaje para que suba una imagen de perfil, se adjunta link  -->
                                 @else
-                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4"
-                                        role="alert">
+                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                                         <p class="font-bold">
                                             {{ isset($image->user) ? $image->user->name : 'Usuario desconocido' }}</p>
                                         <x-nav-link :href="route('image.create')"
                                             :active="request()->routeIs('image.create')">
-                                            {{ __('Carga tu Imagen') }}, </br>
+                                            {{ __('Carga tu Imagen') }}, 
                                             {{ __('Haz click aquí') }}
                                         </x-nav-link>
                                     </div>
@@ -53,13 +56,61 @@
                                         <!-- Botonones para editar y eliminar la imagen -->
                                         @if ($image->user->id == Auth::user()->id)
                                             <div class="p-1 ">
-                                                <span>{{ $image->image_path}}</span> <br>
-                                                <x-nav-link href=""><x-secondary-button>{{'Editar'}}</x-secondary-button></x-nav-link>
-                                                <x-nav-link href="{{route('image.destroy', ['id' => $image->id])}}">
-                                                    <x-danger-button class="m-2">{{ __('Eliminarrrrr') }}</x-danger-button>
-                                                </x-nav-link>
+                                                <span class="text-green-500">{{ 'NOMBRE DE LA IMAGEN =   ' . $image->image_path}}</span> <br>            
+                                                 <x-nav-link href=""><x-secondary-button>{{'Editar'}}</x-secondary-button></x-nav-link>                                                
+                                                
+                                                
+                                                <!-- >Integracion del boton  modal -->
+                                                <x-danger-button type="button"  onclick="openModal('exampleModal')">Eliminar</x-danger-button >                                                
+                                            </div> 
+
+
+                                            <!-- Button trigger modal -->
+                                            <div id="exampleModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                                                <div class="modal-overlay absolute inset-0 bg-gray-900 opacity-80"></div>
+                                                <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                                                    <div class="modal-content py-4 text-left px-6">
+
+                                                    
+                                                        <!-- Modal header -->
+                                                        <div class="flex justify-between items-center pb-3 font-mono ">
+                                                          <button type="button" class="text-black close-modal" onclick="closeModal('exampleModal')">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button> 
+                                                            <br>
+                                                            <h1 class="text-2xl font-bold text-gray-800" id="exampleModalLabel">Estas seguro de eliminar esta imagen!</h1> 
+                                                          
+
+                                                        </div>
+                                                        <!-- Modal body mensaje -->
+                                                        <div class="my-5">
+                                                            <div class="flex items center text-gray-500">
+                                                            <p>Eliminar una imagen es una acción permanente que no puede deshacerse. Antes de proceder, es importante asegurarse de que la imagen ya no es necesaria</p>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Modal footer accion de eliminar configuracion vista-->
+                                                        <div class="flex justify-end pt-2">
+                                                            <x-secondary-button  class="m-4" onclick="closeModal('exampleModal')">Close</x-secondary-button>
+                                                            <x-nav-link href="{{route('image.destroy', ['id' => $image->id])}}">
+                                                            <x-danger-button class="m-2">{{ __('Eliminarrrrr') }}</x-danger-button>
+                                                            </x-nav-link>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        @endif
+
+                                                                {{-- Configuracion del Modal con js para actuar con el boton de eliminar --}}
+                                                                <script>
+                                                                    function openModal(modalId) {
+                                                                        document.getElementById(modalId).classList.remove('hidden');
+                                                                    }
+
+                                                                    function closeModal(modalId) {
+                                                                        document.getElementById(modalId).classList.add('hidden');
+                                                                    }
+                                                                </script>
+
+                             @endif
 
                                     @else
                                         <p class="text-red-500">No se encuentra imagen disponible</p>
