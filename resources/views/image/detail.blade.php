@@ -57,8 +57,9 @@
                                         @if ($image->user->id == Auth::user()->id)
                                             <div class="p-1 ">
                                                 <span class="text-green-500">{{ 'NOMBRE DE LA IMAGEN =   ' . $image->image_path}}</span> <br>            
-                                                 <x-nav-link href=""><x-secondary-button>{{'Editar'}}</x-secondary-button></x-nav-link>                                                
-                                                
+                                                 <x-nav-link href="{{ route('image.edit', ['id' => $image->id]) }}">
+                                                 <x-secondary-button>{{'Editar'}}</x-secondary-button></x-nav-link>                                           
+                                               
                                                 
                                                 <!-- >Integracion del boton  modal -->
                                                 <x-danger-button type="button"  onclick="openModal('exampleModal')">Eliminar</x-danger-button >                                                

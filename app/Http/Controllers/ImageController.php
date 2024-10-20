@@ -117,9 +117,58 @@ class ImageController extends Controller
 
         //Redireccionar al perfil del usuario
         return Redirect::route('home')->with(['status' => 'La imagen se ha borrado correctamente']);
+    }
 
 
+    public function edit($id){
+        $user = \Auth::user();
+        $image = Image::find($id);
+
+        if($user && $image && $image->user->id == $user->id){
+            return view('image.edit', compact('image'));
+
+        }else{
+            return redirect()->route('home');
+        }
 
 
     }
+
+    public function update(Request $request , $id)
+    {
+        $validate = $request->validate([
+            'image_path' => 'image|mimes:jpg,jpeg,png,gif,svg,webp',
+            'description' => 'string'           
+        ]);
+
+        $user = \Auth::user();
+        $image = Image::find($id);
+        
+
+        if($user && $image && $image->user->id == $user->id){
+
+            $image_path = $request->file('image_path');
+            $description = $request->input('description');
+
+
+           $image->description = $description ;
+
+              if($image_path){
+                $image_path_name = time() . $image_path->getClientOriginalName();
+                Storage::disk('images')->put($image_path_name, File::get($image_path));
+                $image->image_path = $image_path_name;
+              }
+
+           $image->save();
+              return redirect()->route('image.detail', ['id' => $id])
+                ->with(['status' => 'imagen actualizada correctamente']);
+        }else{
+            return redirect()->route('home');
+
+
+        
+
+
+    }
+       }
 }

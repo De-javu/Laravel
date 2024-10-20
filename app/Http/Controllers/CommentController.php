@@ -99,20 +99,22 @@ class CommentController extends Controller
         // Recoger los datos del usuario logueado 
         $user = \Auth::user();
 
-        // Recoger los datos del comenetario por el id
 
         // Recoger los datos del comenetario por el id
         $comment = Comment::find($id);
-
     
 
        // Actualizamos los datos en la base de datos
         if ($user && ($comment->user_id == $user->id)) {
+
+
         // recoger los datos que llegan del formulario de la vista edit.blade.php
         $content = $request->input('content');
 
         // Asignamos valores a las propiedades del objeto por meido de una instancia de la clase Comment que se encargara de remplazar los datos antiguos por los nuevos
         $comment->content = $content;
+
+        
        // Actualizamos los datos en la base de datos
         $comment->save();
 
