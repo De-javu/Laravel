@@ -68,11 +68,23 @@ get('/perfil/{id}', //? Se crea una ruta de tipo GET que llama al metodo perfil 
 ->name('settings.perfil'); //? Se le asigna un nombre a la ruta para que sea mas amigable acceder a ella
 
 
-    // Agregar la ruta para eliminar, editar y actualizar la imagen
-    Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit');
-    Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update');
-    });
+// Agregar la ruta para eliminar, editar y actualizar la imagen
+
+Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy'); //? Se crea una ruta de tipo GET que llama al metodo destroy del controlador ImageController
+get('/image/destroy/{id}' //? Se crea una ruta de tipo GET que llama al metodo destroy del controlador ImageController y recibe un parametro id a traves de la URL
+[ImageController::class, 'destroy']) //?  llama al metodo destroy del controlador ImageController
+name('image.destroy') //? Se le asigna un nombre a la ruta para que sea mas amigable acceder a ella
+
+Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit'); //? Se crea una ruta de tipo GET que llama al metodo edit del controlador ImageController
+get('/image/{id}/edit', //? SDe crea una ruta  de tipo get que llama al metodo edit del controlador ImageController y recibe un parametro id a traves de la URL
+[ImageController::class, 'edit'] //?  llama al metodo edit del controlador ImageController
+->name('image.edit'); //? Se le asigna un nombre a la ruta para que sea mas amigable acceder a ella
+Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update'); //? Se crea una ruta de tipo PUT que llama al metodo update del controlador ImageController
+put('/image/{id}', //? Se crea una ruta de tipo PUT que llama al metodo update del controlador ImageController y recibe un parametro id a traves de la URL
+[ImageController::class, 'update']) //?  llama al metodo update del controlador ImageController
+->name('image.update'); //? Se le asigna un nombre a la ruta para que sea mas amigable acceder a ella
+
+});
 
 });
 

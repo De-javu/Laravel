@@ -58,6 +58,8 @@ Route::middleware('auth')->group(function () {
     
     // Agregar la ruta para 'settings'
     Route::get('/perfil/{id}', [SettingsController::class, 'perfil'])->name('settings.perfil');
+
+    // Agregar la ruta para eliminar, editar y actualizar la imagen
     Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
     Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit');
     Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update');
