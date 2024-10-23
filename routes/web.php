@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
     Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit');
     Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update');
+    Route::get('/usuarios', [ProfileController::class, 'index'])->name('profile.index'); 
     });
 
 

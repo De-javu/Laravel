@@ -3,11 +3,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 ">   
-                    
-                
-                    <!-- Se trae la imagne de perfil del usuario -->
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("You listing") }}
+
+                    <!-- Se muestran las imágenes que has subido -->
                     <div>
+                        @foreach ($users as $user)                           
+                        <div>
                         @if ($user->image_path)
                             <div class="flex items center ">
                                 <div class="avatar">
@@ -16,12 +18,16 @@
                                 </div>
                         @endif
 
-
                         <!-- Se muestra la imagne relevante del perfil de usuario en la vista de perfil. -->
                         <div class="p-14 text-gray-900 dark:text-gray-100 flex justify-center items-center flex-col space-y-2 ml-48">
-                        <div class=" mb-8">
+                        <div class=" mb-2">
                         {{ __("INFORMACION DE PERFIL ") }}
                         </div>
+                        <div class="">
+                       <x-nav-link :href="@route('settings.perfil', ['id' => $user->id])">
+                       <x-secondary-button>{{ __('Ver Perfil') }}</x-secondary-button>
+                       </x-nav-link>
+                       </div>
                         <h1>{{'@'.$user->nick}}</h1>
                         <h1>{{$user->name . ' ' . $user->surname}}</h1>
                         <h1>{{$user->email}}</h1>
@@ -30,19 +36,19 @@
                         <h1>{{'Última actualización: ' . \App\Helpers\FormatTime::LongTimeFilter($user->updated_at)}}</h1>
                         </div>
                      </div>
+                        
+                     <hr>
 
-                     <hr>              
-
-                        <!-- Se muestran las imágenes en tu perfil -->
-                        <div>
-                            @foreach ($user->images as $image)    
-                            @include('components.image', compact('image'))
-                            @endforeach
-                        </div>
+                        @endforeach
                     </div>
-
                 </div>
 
             </div>
+
         </div>
+        <!-- Paginacion  -->
+        <div class="mt-4">
+            {{ $users->links() }}
+        </div>
+    </div>
 </x-app-layout>
