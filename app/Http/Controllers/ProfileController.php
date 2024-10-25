@@ -17,10 +17,18 @@ class ProfileController extends Controller
 {
 
     //*Se crea el ,etodo index, el cual nos permiotira listar los datos del usuario.
-    public function index(){
-        $users = User::orderBy('id', 'desc')->paginate(5);
-        return view('profile.index' , compact('users'));
-
+    public function index($search = null)
+    {
+        if(!empty($search)) {
+            $users = User::where('nick', 'LIKE', '%' . $search . '%')
+                ->orwhere('name', 'LIKE', '%' . $search . '%')
+                ->orwhere('surname', 'LIKE', '%' . $search . '%')
+                ->orwhere('id', 'desc')
+                ->paginate(5);
+        } else {
+            $users = User::orderBy('id', 'desc')->paginate(5);
+        }
+        return view('profile.index', compact('users'));
     }
 
     //*metood edit, se encarga de mostrar la vista de edición de perfil.
@@ -32,7 +40,7 @@ class ProfileController extends Controller
     }
 
     //*Este metodo se encarga de actualizar la información del usuario.
-         public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         //dd($request->hasFile('image_path'));
 

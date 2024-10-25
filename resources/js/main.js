@@ -58,4 +58,9 @@ window.addEventListener('load', function () {
     // Inicializar las funciones de like y dislike
     like();
     deslike();
+
+    // Buscador
+    $('#buscador').submit(function (e) {
+        $(this).attr('action', url + '/usuarios/' + $(' #search').val());
+    });
 });

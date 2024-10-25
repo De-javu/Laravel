@@ -37,13 +37,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/avatar/{filename}', [ProfileController::class, 'getImage'])->name('profile.avatar');
+    Route::get('/usuarios/{search?}', [ProfileController::class, 'index'])->name('profile.index'); 
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/perfil/{id}', [SettingsController::class, 'perfil'])->name('settings.perfil');
 
     // Agregar la ruta para 'image'
     Route::get('/image', [ImageController::class, 'create'])->name('image.create');
-    Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');    
     Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name('image.file');
     Route::get('/image/{id}', [ImageController::class, 'detail'])->name('image.detail');
+    Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
+    Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit');
+    Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update');
 
     // Agregar la ruta para 'comment'
     Route::patch('/comment/store', [CommentController::class, 'store'])->name('comment.store');
@@ -54,16 +59,7 @@ Route::middleware('auth')->group(function () {
     // Agregar la ruta para 'like'
     Route::get('/like/{image_id}', [LikeController::class, 'like'])->name('like.save');
     Route::get('/deslike/{image_id}', [LikeController::class, 'deslike'])->name('deslike.delete');
-    Route::get('/like', [LikeController::class, 'index'])->name('like.index');    
-    
-    // Agregar la ruta para 'settings'
-    Route::get('/perfil/{id}', [SettingsController::class, 'perfil'])->name('settings.perfil');
-
-    // Agregar la ruta para eliminar, editar y actualizar la imagen
-    Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::get('/image/{id}/edit', [ImageController::class, 'edit'])->name('image.edit');
-    Route::put('/image/{id}', [ImageController::class, 'update'])->name('image.update');
-    Route::get('/usuarios', [ProfileController::class, 'index'])->name('profile.index'); 
+    Route::get('/like', [LikeController::class, 'index'])->name('like.index');      
     });
 
 
