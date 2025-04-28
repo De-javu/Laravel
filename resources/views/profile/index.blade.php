@@ -1,7 +1,7 @@
 <x-app-layout>
 
 
-    <!-- Se crea una vista para mostrar las imágenes que ha subido el usuario. -->
+    <!-- Se crea boton  para realizar busqueda de usuarios. -->
 <form  method="GET" action="{{route('profile.index')}}" id="buscador" class="max-w-md mx-auto mt-12"> 
     @csrf
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>

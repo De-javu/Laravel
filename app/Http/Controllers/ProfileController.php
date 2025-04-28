@@ -16,15 +16,15 @@ use App\Models\User;
 class ProfileController extends Controller
 {
 
-    //*Se crea el ,etodo index, el cual nos permiotira listar los datos del usuario.
+    //*Se crea el ,metodo index, el cual nos pernite listar los datos del usuario y realizara una busqueda.
     public function index($search = null)
     {
         if(!empty($search)) {
             $users = User::where('nick', 'LIKE', '%' . $search . '%')
-                ->orwhere('name', 'LIKE', '%' . $search . '%')
-                ->orwhere('surname', 'LIKE', '%' . $search . '%')
-                ->orwhere('id', 'desc')
-                ->paginate(5);
+                        ->orwhere('name', 'LIKE', '%' . $search . '%')
+                        ->orwhere('surname', 'LIKE', '%' . $search . '%')
+                        ->orwhere('id', 'desc')
+                        ->paginate(5);
         } else {
             $users = User::orderBy('id', 'desc')->paginate(5);
         }
