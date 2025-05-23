@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Redirect;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Like;
@@ -126,7 +126,7 @@ class ImageController extends Controller
     public function edit($id)
     {
         //Conseguir el usuario identificado y el id de la imagen
-        $user = \Auth::user();
+        $user = Auth::user();
         $image = Image::find($id);
 
         //Comprobar si el usuario logeado es el dueño de la imagen
@@ -149,7 +149,7 @@ class ImageController extends Controller
             'description' => 'string'
         ]);
         //Recoger los datos del usuario logueado y el id de la imagen
-        $user = \Auth::user();
+        $user = Auth::user();
         $image = Image::find($id);
 
         //Actualizar los datos en la base de datossi si soy el dueño de la imagen

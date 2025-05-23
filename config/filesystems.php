@@ -52,13 +52,14 @@ return [
             'throw' => false,
         ],
 
-        'images' => [
-            'driver' => 'local',
-            'root' => storage_path('app/images'),
-            'url' => env('APP_URL').'/storage/images',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
+       
+    'images' => [
+    'driver' => 'local',
+    'root' => storage_path('app/public/images'),
+    'url' => env('APP_URL').'/storage/images',
+    'visibility' => 'public',
+    'throw' => false,
+],
 
         
 

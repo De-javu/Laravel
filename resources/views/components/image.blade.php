@@ -38,13 +38,12 @@
     <div class="car-body p-4 bg-gray-710 rounded-lg shadow-xl">
         <div class="image mb-4 ">
 
-            @if (isset($image->user->image_path))
-
-                <img src="{{ route('image.file', ['filename' => $image->image_path]) }}" alt="Imagen"
-                    class="object-cover h-48 w-full object-cover">
-            @else
-                <p class="text-red-500">No se encuentra imagen disponible</p>
-            @endif
+    @if ($image->image_path)
+    <img src="{{ asset('storage/images/' . $image->image_path) }}" alt="Imagen"
+     style="max-width: 400px; height: auto; object-fit: cover; border-radius: 8px;">
+    @else
+        <p class="text-red-500">No se encuentra imagen disponible</p>
+      @endif
 
 
             <div class="description   m-auto p-4  ">
