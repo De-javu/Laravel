@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
     // Agregar la ruta para 'image'
     Route::get('/image', [ImageController::class, 'create'])->name('image.create');
-    Route::patch('/image/save', [ImageController::class, 'save'])->name('image.save');    
+    Route::post('/image/save', [ImageController::class, 'save'])->name('image.save');    
     Route::get('/image/file/{filename}', [HomeController::class, 'getImage'])->name('image.file');
     Route::get('/image/{id}', [ImageController::class, 'detail'])->name('image.detail');
     Route::get('/image/destroy/{id}', [ImageController::class, 'destroy'])->name('image.destroy');

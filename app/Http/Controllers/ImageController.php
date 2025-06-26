@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Like;
 
+
 class ImageController extends Controller
 {
     // public function __construct()
@@ -34,6 +35,7 @@ class ImageController extends Controller
     //*Metodo para guardar la imagen
     public function save(Request $request): RedirectResponse
     {
+    
         //Validacion de los datos que llegan por el formulario de subir imagen 
         $request->validate(rules: [
             'image_path' => 'required|image|mimes:jpg,jpeg,png,gif,svg,webp',
@@ -53,7 +55,7 @@ class ImageController extends Controller
         // Subir la imagen al servidor
         if ($image_path) {
             $image_path_name = time() . $image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name, File::get($image_path));
+            Storage::disk('images')->put($image_path_name, File::get($image_path));            
             $image->image_path = $image_path_name;
 
         }

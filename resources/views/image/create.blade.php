@@ -16,35 +16,30 @@
 
                 <!-- Creacion del formulario para subir imagenes -->
                 <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg sm:overflow-hidden">
-                    <form method="POST" action="{{route('image.save')}} " enctype="multipart/form-data"
-                        class="mt-6 space-y-6">
-                        @csrf
-                        @method('patch')
+                    <form method="POST" action="{{ route('image.save') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+                    @csrf
 
-                        <div>
-                            <x-input-label for="image_path" :value="__('Image')" />
+                    <div>
+                    <x-input-label for="image_path" :value="__('Image')" />
+                    <input id="image_path" name="image_path" type="file" class="mt-1 block w-full" required />
+                    <x-input-error class="mt-2" :messages="$errors->get('image_path')" />
+                    </div>
 
-                            <x-text-input id="image_path" name="image_path" type="file" class="mt-1 block w-full"
-                                required />
-                            <x-input-error class="mt-2" :messages="$errors->get('image_path')" />
-                        </div>
+                    <div>
+                    <x-input-label for="description" :value="__('Description')" />
+                    <textarea id="description" name="description" class="mt-1 block w-full" required></textarea>
+                    <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                    </div>
 
-                        <div>
-                            <x-input-label for="description" :value="__('Description')" />
-                            <textarea id="description" name="description" class="mt-1 block w-full" required></textarea>
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                        </div>
+                    <div class="flex items-center gap-4">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
 
-                        <!-- Se crea el boton de guardado de la imagen y se muestra un mensaje de guardado exitoso. -->
-                        <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                            @if (session('status') === 'profile-updated')
-                                <p x-data="{ show: true }" x-show="show" x-transition
-                                    x-init="setTimeout(() => show = false, 2000)"
-                                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
-                            @endif
-                        </div>
+                    @if (session('status') === 'profile-updated')
+                    <p x-data="{ show: true }" x-show="show" x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
+                    @endif
+                    </div>
                     </form>
                 </div>
         </div>

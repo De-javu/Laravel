@@ -44,22 +44,22 @@ return [
             'throw' => false,
         ],
 
-        'users' => [
-            'driver' => 'local',
-            'root' => storage_path('app/users'),
-            'url' => env('APP_URL').'/storage/users',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
 
-       
-    'images' => [
-    'driver' => 'local',
-    'root' => storage_path('app/public/images'),
-    'url' => env('APP_URL').'/storage/images',
-    'visibility' => 'public',
-    'throw' => false,
-],
+                'users' => [
+                'driver' => 'local',
+                'root' => storage_path('app/public/users'),
+                'url' => env('APP_URL').'/storage/users',
+                'visibility' => 'public',
+                'throw' => false,
+   ],
+
+                'images' => [
+                'driver' => 'local',
+                'root' => storage_path('app/public/images'),
+                'url' => env('APP_URL').'/storage/images',
+                'visibility' => 'public',
+                'throw' => false,
+                ],
 
         
 
