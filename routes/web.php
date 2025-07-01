@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     // Agregar las rutas para la configuracion de perfil'
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/avatar/{filename}', [ProfileController::class, 'getImage'])->name('profile.avatar');
     Route::get('/usuarios/{search?}', [ProfileController::class, 'index'])->name('profile.index'); 

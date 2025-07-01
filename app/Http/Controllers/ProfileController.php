@@ -83,7 +83,7 @@ class ProfileController extends Controller
             $image_path_name = time() . '_' . $image_path->getClientOriginalName();
 
             // Guardar en la carpeta storage (storage/app/users)
-            Storage::disk('users')->put($image_path_name, \File::get($image_path));
+            Storage::disk('users')->put($image_path_name, File::get($image_path));
 
             // Seteo el nombre de la imagen en el objeto
             $user->image_path = $image_path_name;
