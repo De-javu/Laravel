@@ -10,23 +10,20 @@ class Image extends Model
     use  HasFactory ;
     protected $table = 'images';
 
-    // Realacion uno a muchos
+    // Relacion uno a muchos
     public function comments(){
         return $this->hasMany(Comment::class)->orderBy('id', 'desc');
-
     }
 
     // Relacion uno a muchos
     public function likes(){
-        return $this->hasMany(like::class);
+        return $this->hasMany(Like::class);
     }
 
     // Relacion de muchos a uno
-
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
-
     }
- 
+
 
 }
